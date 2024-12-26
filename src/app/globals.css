@@ -3,12 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --background: #0A0A0B;
-  --foreground: #FFFFFF;
+  --background: #FFFFFF; /* Light mode background */
+  --foreground: #0A0A0B; /* Light mode text color */
   --primary: #6B46C1;
   --secondary: #3B82F6;
   --accent: #8B5CF6;
   --muted: #94A3B8;
+}
+
+.dark {
+  --background: #0A0A0B; /* Dark mode background */
+  --foreground: #FFFFFF; /* Dark mode text color */
 }
 
 body {

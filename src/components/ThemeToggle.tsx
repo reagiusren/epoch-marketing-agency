@@ -1,14 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Moon, Sun } from 'lucide-react';
 
 const ThemeToggle = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
+  useEffect(() => {
+    // Apply the theme class to the <html> element
+    document.documentElement.classList.toggle('dark', isDarkMode);
+  }, [isDarkMode]);
+
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle('dark', !isDarkMode);
   };
 
   return (

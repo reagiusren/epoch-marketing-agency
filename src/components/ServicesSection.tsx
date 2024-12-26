@@ -62,19 +62,19 @@ const ServiceCard = ({ title, Icon, description, benefits, index }: ServiceCardP
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ y: -5 }}
-      className="flex flex-col p-6 bg-gradient-to-br from-gray-900/50 to-gray-900/20 rounded-xl border border-gray-800 hover:border-purple-500/50 transition-colors"
+      className="flex flex-col p-6 bg-background/50 rounded-xl border border-muted hover:border-accent transition-colors"
     >
       <div className="flex items-center gap-4 mb-4">
-        <div className="p-2 bg-purple-500/10 rounded-lg">
-          <Icon className="w-6 h-6 text-purple-400" />
+        <div className="p-2 bg-primary/10 rounded-lg">
+          <Icon className="w-6 h-6 text-primary" />
         </div>
-        <h3 className="text-xl font-semibold">{title}</h3>
+        <h3 className="text-xl font-semibold text-foreground">{title}</h3>
       </div>
-      <p className="text-gray-400 mb-6">{description}</p>
+      <p className="text-muted mb-6">{description}</p>
       <ul className="space-y-2 mt-auto">
         {benefits.map((benefit, i) => (
-          <li key={i} className="flex items-center gap-2 text-gray-300">
-            <span className="w-1 h-1 bg-purple-400 rounded-full" />
+          <li key={i} className="flex items-center gap-2 text-muted">
+            <span className="w-1 h-1 bg-primary rounded-full" />
             {benefit}
           </li>
         ))}
@@ -85,7 +85,7 @@ const ServiceCard = ({ title, Icon, description, benefits, index }: ServiceCardP
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="relative py-20 px-4 overflow-hidden">
+    <section id="services" className="relative py-20 px-4 overflow-hidden bg-background text-foreground">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -95,7 +95,7 @@ const ServicesSection = () => {
         <h2 className="text-4xl md:text-5xl font-bold mb-4">
           Grow Your E-commerce Business
         </h2>
-        <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+        <p className="text-xl text-muted max-w-3xl mx-auto">
           Stop losing money on inefficient marketing. Our data-driven approach helps you optimize every part of your business for maximum growth.
         </p>
       </motion.div>
