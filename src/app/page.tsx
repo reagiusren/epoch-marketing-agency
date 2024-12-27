@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import HeroSection from '../components/HeroSection';
 import ServicesSection from '../components/ServicesSection';
+import ProblemSolutionSection from '../components/ProblemSolutionSection'; // Import the new section
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Loader from '../components/Loader';
@@ -22,6 +23,7 @@ export default function Home() {
         <>
           <Navbar />
           <HeroSection />
+          <ProblemSolutionSection /> {/* Add the Problem/Solution Section */}
           <ServicesSection />
           <Footer />
         </>
