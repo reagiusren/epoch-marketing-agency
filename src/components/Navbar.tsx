@@ -47,7 +47,7 @@ const Navbar = () => {
             Home
           </button>
           <button
-            onClick={() => scrollToSection('services')}
+            onClick={() => scrollToSection('services')} // Use lowercase 'services'
             className={`text-gray-300 hover:text-white cursor-pointer ${
               activeSection === 'services' ? 'text-white font-semibold' : ''
             }`}

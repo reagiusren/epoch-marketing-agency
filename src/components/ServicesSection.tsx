@@ -1,119 +1,204 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Gauge, BarChart3, ShoppingCart, Target, type LucideProps } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  ShoppingBag, 
+  MousePointerClick, 
+  BarChart2, 
+  TrendingUp,
+  Check,
+  ArrowRight,
+  type LucideIcon
+} from 'lucide-react';
 
-interface ServiceCardProps {
+// Define the Service type
+interface Service {
+  icon: LucideIcon;
   title: string;
-  Icon: React.ComponentType<LucideProps>;
   description: string;
-  benefits: string[];
-  index: number;
+  color: string;
+  features: string[];
+  standalone: string;
 }
 
-const services = [
+const services: Service[] = [
   {
+    icon: ShoppingBag,
     title: "Shopify Store Optimization",
-    icon: ShoppingCart,
-    description: "Transform your store into a high-converting sales machine with data-driven optimization and proven UX improvements.",
-    benefits: [
-      "Increase conversion rates",
-      "Optimize checkout flow",
-      "Improve user experience"
-    ]
+    description: "Transform your store into a high-converting sales machine.",
+    color: "from-purple-500 to-fuchsia-500",
+    features: [
+      "Custom theme design & development",
+      "Conversion rate optimization",
+      "Product page optimization",
+      "Compelling product descriptions & copy",
+      "Mobile responsiveness",
+      "Loading speed optimization",
+      "Checkout flow optimization"
+    ],
+    standalone: "Perfect if you need to improve your store's performance and conversion rate."
   },
   {
-    title: "Facebook Ads Management",
-    icon: Target,
-    description: "Advanced pixel setup and CAPI integration to reduce ad costs and improve targeting accuracy.",
-    benefits: [
-      "Lower acquisition costs",
-      "Better targeting precision",
-      "Improved ROAS"
-    ]
+    icon: MousePointerClick,
+    title: "Facebook & Google Ads",
+    description: "Scale your business with expert paid advertising solutions.",
+    color: "from-blue-500 to-cyan-500",
+    features: [
+      "Complete campaign strategy & setup",
+      "Meta Pixel & Conversions API implementation",
+      "Google Ads conversion tracking",
+      "Custom audience & remarketing setup",
+      "Professional ad creative & copy",
+      "A/B testing & optimization",
+      "Budget management & scaling"
+    ],
+    standalone: "Ready to drive targeted traffic and acquire customers profitably."
   },
   {
-    title: "Analytics & Tracking",
-    icon: BarChart3,
-    description: "Proper GTM and GA4 setup to track every important interaction and turn data into growth opportunities.",
-    benefits: [
-      "Clear performance insights",
-      "Revenue attribution",
-      "Data-driven decisions"
-    ]
+    icon: BarChart2,
+    title: "Analytics & Tracking Setup",
+    description: "Get crystal-clear insights with comprehensive tracking implementation.",
+    color: "from-cyan-500 to-teal-500",
+    features: [
+      "Google Tag Manager (GTM) setup",
+      "Google Analytics 4 (GA4) configuration",
+      "Custom conversion tracking",
+      "Enhanced e-commerce tracking",
+      "Cross-platform attribution setup",
+      "Custom reporting dashboards",
+      "Data accuracy verification"
+    ],
+    standalone: "Essential for businesses wanting accurate, comprehensive data for strategic decisions."
   },
   {
+    icon: TrendingUp,
     title: "Performance Monitoring",
-    icon: Gauge,
-    description: "Continuous optimization of your entire funnel to identify and capture every growth opportunity.",
-    benefits: [
-      "Regular optimization",
-      "Proactive improvements",
-      "Sustained growth"
-    ]
+    description: "Continuous optimization and growth of your e-commerce ecosystem.",
+    color: "from-teal-500 to-green-500",
+    features: [
+      "24/7 campaign monitoring",
+      "Weekly performance reports",
+      "ROI & ROAS analysis",
+      "Conversion funnel analysis",
+      "Customer journey optimization",
+      "Competition monitoring",
+      "Growth opportunity identification"
+    ],
+    standalone: "Ideal for ensuring continuous improvement and maximizing your marketing ROI."
   }
 ];
 
-const ServiceCard = ({ title, Icon, description, benefits, index }: ServiceCardProps) => {
+// Define the ServiceCardProps type
+interface ServiceCardProps {
+  service: Service;
+  index: number;
+}
+
+const ServiceCard = ({ service, index }: ServiceCardProps) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const Icon = service.icon;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -5 }}
-      className="flex flex-col p-6 bg-background/50 rounded-xl border border-muted hover:border-accent transition-colors"
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1 }}
+      className="relative"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      whileHover={{ scale: 1.02 }}
     >
-      <div className="flex items-center gap-4 mb-4">
-        <div className="p-2 bg-primary/10 rounded-lg">
-          <Icon className="w-6 h-6 text-primary" />
+      <div className="relative p-8 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-800 hover:border-gray-700 transition-all duration-300 h-full">
+        {/* Icon */}
+        <motion.div
+          whileHover={{ rotate: 10 }}
+          className={`inline-flex p-4 rounded-xl bg-gradient-to-r ${service.color} mb-6`}
+        >
+          <Icon className="w-6 h-6 text-white" />
+        </motion.div>
+
+        {/* Content */}
+        <h3 className="text-2xl font-bold text-white mb-4">
+          {service.title}
+        </h3>
+        <p className="text-gray-400 mb-6">
+          {service.description}
+        </p>
+
+        {/* Features List */}
+        <ul className="space-y-3 mb-6">
+          {service.features.map((feature: string, i: number) => (
+            <li key={i} className="flex items-center text-gray-300">
+              <Check className="w-5 h-5 text-green-500 mr-3" />
+              {feature}
+            </li>
+          ))}
+        </ul>
+
+        {/* Standalone Message */}
+        <div className="text-gray-400 italic">
+          {service.standalone}
         </div>
-        <h3 className="text-xl font-semibold text-foreground">{title}</h3>
+
+        {/* Hover Effect */}
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
-      <p className="text-muted mb-6">{description}</p>
-      <ul className="space-y-2 mt-auto">
-        {benefits.map((benefit, i) => (
-          <li key={i} className="flex items-center gap-2 text-muted">
-            <span className="w-1 h-1 bg-primary rounded-full" />
-            {benefit}
-          </li>
-        ))}
-      </ul>
     </motion.div>
   );
 };
 
-const ServicesSection = () => {
-  return (
-    <section id="services" className="relative py-20 px-4 overflow-hidden bg-background text-foreground">
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="max-w-6xl mx-auto text-center mb-16"
-      >
-        <h2 className="text-4xl md:text-5xl font-bold mb-4">
-          Grow Your E-commerce Business
-        </h2>
-        <p className="text-xl text-muted max-w-3xl mx-auto">
-          Stop losing money on inefficient marketing. Our data-driven approach helps you optimize every part of your business for maximum growth.
-        </p>
-      </motion.div>
+const ServicesBreakdown = () => {
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-        {services.map((service, index) => (
-          <ServiceCard
-            key={index}
-            index={index}
-            title={service.title}
-            Icon={service.icon}
-            description={service.description}
-            benefits={service.benefits}
-          />
-        ))}
+  return (
+    <section id="services" className="relative py-20 overflow-hidden bg-black">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-black to-blue-900/20" />
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-20"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
+            Flexible Services for Your Needs
+          </h2>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            Whether you need a complete marketing solution or help with specific areas,
+            we've got you covered. Choose the services that match your goals.
+          </p>
+        </motion.div>
+
+        {/* Services Grid */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {services.map((service, index) => (
+            <ServiceCard key={index} service={service} index={index} />
+          ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mt-20 space-y-6"
+        >
+          <p className="text-xl text-gray-300">
+            Not sure what you need? Let's talk about your goals.
+          </p>
+          <button className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-lg font-medium text-lg shadow-lg hover:shadow-purple-500/20 transition-all duration-300 flex items-center justify-center gap-2 mx-auto">
+            Schedule a Free Consultation
+            <ArrowRight className="w-5 h-5" />
+          </button>
+        </motion.div>
       </div>
     </section>
   );
 };
 
-export default ServicesSection;
+export default ServicesBreakdown;
