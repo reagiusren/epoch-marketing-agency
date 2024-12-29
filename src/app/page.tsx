@@ -5,6 +5,7 @@ import HeroSection from '../components/HeroSection';
 import ServicesSection from '../components/ServicesSection';
 import ProblemSolutionSection from '../components/ProblemSolutionSection'; // Import the new section
 import ProcessSection from '@/components/ProcessSection';
+import CaseStudiesSection from '@/components/CaseStudiesSection';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Loader from '../components/Loader';
@@ -27,6 +28,7 @@ export default function Home() {
           <ProblemSolutionSection /> {/* Add the Problem/Solution Section */}
           <ServicesSection />
           <ProcessSection />
+          <CaseStudiesSection />
           <Footer />
         </>
       )}
